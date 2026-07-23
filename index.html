@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date?</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ffd6e7,#ffe9f3,#ffcce5);
+    overflow:hidden;
+}
+
+.container{
+    background:white;
+    padding:50px;
+    border-radius:30px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(255,105,180,.3);
+    width:450px;
+    position:relative;
+}
+
+h1{
+    color:#ff4f8b;
+    margin-bottom:15px;
+    font-size:32px;
+}
+
+p{
+    color:#666;
+    margin-bottom:35px;
+    font-size:18px;
+}
+
+.buttons{
+    position:relative;
+    height:80px;
+}
+
+button{
+    border:none;
+    padding:15px 35px;
+    border-radius:30px;
+    font-size:18px;
+    cursor:pointer;
+    transition:.3s;
+    position:absolute;
+}
+
+#yesBtn{
+    left:70px;
+    background:#ff5f9e;
+    color:white;
+}
+
+#yesBtn:hover{
+    background:#ff3f88;
+    transform:scale(1.08);
+}
+
+#noBtn{
+    right:70px;
+    background:#ffe0ec;
+    color:#ff4f8b;
+}
+
+#message{
+    margin-top:30px;
+    font-size:24px;
+    color:#ff2d75;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🌸 Will You Go On A Date With Me? 🌸</h1>
+    <p>You would make my day! 💖</p>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes 💕</button>
+        <button id="noBtn">No 🙈</button>
+    </div>
+
+    <div id="message"></div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+
+// No button runs away
+noBtn.addEventListener("mouseover", () => {
+    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
+});
+
+// YES BUTTON
+yesBtn.addEventListener("click", firstPage);
+
+let selectedDate = "";
+let selectedTime = "";
+let selectedFood = "";
+
+// ---------------- FIRST PAGE ----------------
+
+function firstPage() {
+
+document.body.innerHTML = `
+<style>
+body{
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:linear-gradient(135deg,#ffd6e7,#ffe9f3,#ffcce5);
+font-family:Poppins,sans-serif;
+text-align:center;
+}
+
+.card{
+background:white;
+padding:50px;
+width:520px;
+border-radius:25px;
+box-shadow:0 15px 35px rgba(255,105,180,.3);
+animation:pop .5s;
+}
+
+button{
+margin-top:30px;
+padding:15px 35px;
+background:#ff5fa2;
+border:none;
+border-radius:30px;
+font-size:18px;
+color:white;
+cursor:pointer;
+}
+
+button:hover{
+background:#ff3f88;
+}
+
+@keyframes pop{
+from{transform:scale(.8);opacity:0;}
+to{transform:scale(1);opacity:1;}
+}
+</style>
+
+<div class="card">
+<h1 style="color:#ff4081;">
+WAIT YOU ACTUALLY SAID YES?? 😭
+</h1>
+
+<h2 style="color:#ff6b9e;">
+Right... I was so ready for you to say no. 🤨
+</h2>
+
+<button onclick="datePage()">
+Okay Okay 💕
+</button>
+
+</div>
+`;
+
+}
+
+// ---------------- DATE PAGE ----------------
+
+function datePage(){
+
+document.body.innerHTML=`
+
+<style>
+
+body{
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:linear-gradient(135deg,#ffd6e7,#ffe9f3,#ffcce5);
+font-family:Poppins,sans-serif;
+}
+
+.card{
+background:white;
+padding:40px;
+width:500px;
+border-radius:25px;
+text-align:center;
+box-shadow:0 15px 35px rgba(255,105,180,.3);
+}
+
+input{
+width:90%;
+padding:15px;
+margin:15px;
+font-size:18px;
+border-radius:15px;
+border:2px solid pink;
+}
+
+button{
+padding:15px 30px;
+background:#ff5fa2;
+color:white;
+border:none;
+border-radius:30px;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:#ff3f88;
+}
+
+</style>
+
+<div class="card">
+
+<h1 style="color:#ff4081;">
+So... when are you free? 💖
+</h1>
+
+<h3>📅 Pick a Day</h3>
+
+<input id="date" type="date">
+
+<h3>⏰ What time?</h3>
+
+<input id="time" type="time">
+
+<br>
+
+<button onclick="foodPage()">
+Set the Date ❤️
+</button>
+
+</div>
+
+`;
+
+}
+
+function foodPage(){
+
+selectedDate = document.getElementById("date").value;
+selectedTime = document.getElementById("time").value;
+
+document.body.innerHTML = `
+
+<style>
+
+body{
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+background:linear-gradient(135deg,#ffd6e7,#ffe9f3,#ffcce5);
+font-family:Poppins,sans-serif;
+}
+
+.card{
+background:white;
+padding:35px;
+width:750px;
+border-radius:30px;
+text-align:center;
+box-shadow:0 15px 40px rgba(255,105,180,.3);
+}
+
+h1{
+color:#ff4081;
+}
+
+h2{
+color:#ff69b4;
+}
+
+.food-container{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+margin-top:30px;
+}
+
+.food-card{
+background:#fff0f6;
+padding:15px;
+border-radius:20px;
+cursor:pointer;
+transition:.3s;
+}
+
+.food-card:hover{
+transform:scale(1.08);
+background:#ffd6e7;
+}
+
+.food-card img{
+width:130px;
+height:100px;
+object-fit:cover;
+border-radius:15px;
+}
+
+.food-name{
+margin-top:10px;
+font-size:18px;
+font-weight:bold;
+color:#ff4081;
+}
+
+</style>
+
+
+<div class="card">
+
+<h1>💖 What are we feeling? 💖</h1>
+
+<h2>Pick your vibe 🍽️</h2>
+
+
+<div class="food-container">
+
+
+<div class="food-card" onclick="finalPage('🍕 Pizza')">
+
+<img src="https://images.unsplash.com/photo-1513104890138-7c749659a591">
+
+<div class="food-name">
+🍕 Pizza
+</div>
+
+</div>
+
+
+
+<div class="food-card" onclick="finalPage('🍣 Sushi')">
+
+<img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c">
+
+<div class="food-name">
+🍣 Sushi
+</div>
+
+</div>
+
+
+
+
+<div class="food-card" onclick="finalPage('🥔 Aloo Ke Parathe')">
+
+<img src="https://images.unsplash.com/photo-1626132647523-66f5bf380027">
+
+<div class="food-name">
+🥔 Aloo Ke Parathe
+</div>
+
+</div>
+
+
+
+
+<div class="food-card" onclick="finalPage('🥞 Dosa')">
+
+<img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976">
+
+<div class="food-name">
+🥞 Dosa
+</div>
+
+</div>
+
+
+
+
+<div class="food-card" onclick="finalPage('🍫 Chocolate')">
+
+<img src="https://cdn.pixabay.com/photo/2024/07/24/19/02/chocolate-8919274_1280.jpg">
+
+<div class="food-name">
+🍫 Chocolate
+</div>
+
+</div>
+
+
+
+
+
+<div class="food-card" onclick="finalPage('🍔 Burger')">
+
+<img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd">
+
+<div class="food-name">
+🍔 Burger
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+
+
+// ---------------- FINAL PAGE ----------------
+
+function finalPage(food){
+
+selectedFood=food;
+
+document.body.innerHTML=`
+
+<style>
+
+body{
+
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:linear-gradient(135deg,#ffd6e7,#ffe9f3,#ffcce5);
+font-family:Poppins,sans-serif;
+overflow:hidden;
+}
+
+.card{
+
+background:white;
+padding:45px;
+width:650px;
+border-radius:25px;
+text-align:center;
+box-shadow:0 15px 35px rgba(255,105,180,.3);
+
+}
+
+button{
+
+margin-top:30px;
+padding:15px 35px;
+border:none;
+border-radius:30px;
+background:#ff5fa2;
+color:white;
+font-size:18px;
+cursor:pointer;
+
+}
+
+.hearts{
+font-size:35px;
+animation:float 2s infinite alternate;
+}
+
+@keyframes float{
+from{transform:translateY(0);}
+to{transform:translateY(-12px);}
+}
+
+</style>
+
+<div class="card">
+
+<h1 style="color:#ff4081;">
+🥹 Glad you didn't say no.
+</h1>
+
+<h2 style="color:#ff6b9e;">
+Be ready by <br><br>
+<b>${selectedTime}</b> ⏰
+</h2>
+
+<h2>
+I'm coming to get you 🚗
+</h2>
+
+<h3>
+Our vibe is <br>
+${selectedFood}
+</h3>
+
+<div class="hearts">
+💖💕💗💞💘💝💓💖💕💗
+</div>
+
+<button onclick="accepted()">
+OK I ACCEPT ❤️
+</button>
+
+</div>
+
+`;
+
+}
+
+// ---------------- LAST PAGE ----------------
+
+function accepted(){
+
+document.body.innerHTML=`
+
+<style>
+
+body{
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:linear-gradient(135deg,#ffd6e7,#ffe9f3,#ffcce5);
+font-family:Poppins,sans-serif;
+text-align:center;
+}
+
+h1{
+font-size:60px;
+color:#ff4081;
+}
+
+h2{
+color:#ff69b4;
+}
+
+</style>
+
+<div>
+
+<h1>YAYYYYY!! 🥹💖</h1>
+
+<h2>
+See you on ${selectedDate} ❤️
+</h2>
+
+<h2>
+at ${selectedTime} ⏰
+</h2>
+
+<h2>
+We'll enjoy ${selectedFood} together! 😋
+</h2>
+
+<div style="font-size:70px;">
+💖💖💖🚗🌸💕✨🥰💞
+</div>
+
+</div>
+
+`;
+
+}
+</script>
+
+
+</body>
+</html>
